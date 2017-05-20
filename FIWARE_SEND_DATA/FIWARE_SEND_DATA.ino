@@ -39,12 +39,15 @@ void loop() {
 
 //String data = "{\"contextElements\":[{\"type\":\"cherubs\",\"isPattern\":\"false\",\"id\":\"EntidadTTT\",\"attributes\":[{\"name\":\"Humedad\",\"type\":\"float\",\"value\":\"100.9999\"},{\"name\":\"Velocidad\",\"type\":\"Float\",\"value\":\"12303\"}]}],\"updateAction\":\"APPEND\"}";
 //String data = "";
-//data = "{\"contextElements\":[{\"type\":\"cherubs\",\"isPattern\":\"false\",\"id\":\"cherubs2017\",\"attributes\":[{\"empresa\":{\"type\":\"integer\",\"value\":\"123\"},\"fecha\":{\"type\":\"String\",\"value\":\"12:06:201710:35\"},\"humedadRelativa\":{\"type\":\"Float\",\"value\":\"4548\"},\"humedadSuelo\":{\"type\":\"Float\",\"value\":\"777\"},\"position\":{\"type\":\"Float\",\"value\":\"0,0\"},\"temperatura\":{\"type\":\"Integer\",\"value\":\"8277\"}}]}],\"updateAction\":\"APPEND\"}";
-String data = "{\"contextElements\":[{\"type\":\"prueva\",\"isPattern\":\"false\",\"id\":\"cherubs22\",\"attributes\":[{\"name\":\"empresa\",\"type\":\"integer\",\"value\":\"123\"},{\"name\":\"fecha\",\"type\":\"String\",\"value\":\"12:06:2017 10:35\"},{\"name\":\"humedadRelativa\",\"type\":\"Float\",\"value\":\""+humedadS;
-String data1= "\"},{\"name\":\"humedadSuelo\",\"type\":\"float\",\"value\":\"0101\"},{\"name\":\"position\",\"type\":\"Float\",\"value\":\"0,0\"},{\"name\":\"temperatura\",\"type\":\"Integer\",\"value\":\"10\"}]}],\"updateAction\":\"APPEND\"}";
+String data = "{\"contextElements\":[{\"type\":\"prueva\",\"isPattern\":\"false\",\"id\":\"cherubs22\",\"attributes\":[{\"name\":\"empresa\",\"type\":\"integer\",\"value\":\"123\"},{\"name\":\"humedadRelativa\",\"type\":\"Float\",\"value\":\""+humedadS+"\"}]}],\"updateAction\":\"APPEND\"}";
+String data1 = "{\"contextElements\":[{\"type\":\"prueva\",\"isPattern\":\"false\",\"id\":\"cherubs22\",\"attributes\":[{\"name\":\"position\",\"type\":\"Float\",\"value\":\"0,0\"},{\"name\":\"temperatura\",\"type\":\"Integer\",\"value\":\"10\"}]}],\"updateAction\":\"APPEND\"}";
+String data2 = "{\"contextElements\":[{\"type\":\"prueva\",\"isPattern\":\"false\",\"id\":\"cherubs22\",\"attributes\":[{\"name\":\"fecha\",\"type\":\"String\",\"value\":\"12:06:2016 10:35\"},{\"name\":\"humedadSuelo\",\"type\":\"float\",\"value\":\"0101\"}]}],\"updateAction\":\"APPEND\"}";
+
+
    Serial.println(data);      // String data = "{\"contextElements\":[{\"type\":\"habitacion\",\"isPattern\":\"false\",\"id\":\"cherubshect\",\"attributes\":[{\"name\":\"humedadSuelo\",\"type\":\"float\",\"value\":\""+humedadS+"\"}]}],\"updateAction\":\"APPEND\"}";
-Serial.println(data1);
-   Serial.println(data.length()+data1.length());
+ Serial.println(data1);
+ Serial.println(data2);
+
   
    if (client.connect(server, 1026) > 0) {
     client.println("POST /v1/updateContext HTTP/1.1");
@@ -52,9 +55,29 @@ Serial.println(data1);
     client.println("Content-Type: application/json");
     client.println("User-Agent: Arduino 1/0");
     client.print("Content-Length: ");
-    client.println(data.length()+data1.length());
+    client.println(data.length());
     client.println();
-    client.print(data+data1);
+    client.print(data);
+    client.println();
+    
+    client.println("POST /v1/updateContext HTTP/1.1");
+    client.println("Host: 207.249.127.215");
+    client.println("Content-Type: application/json");
+    client.println("User-Agent: Arduino 1/0");
+    client.print("Content-Length: ");
+    client.println(data1.length());
+    client.println();
+    client.print(data1);
+    client.println();
+    
+       client.println("POST /v1/updateContext HTTP/1.1");
+    client.println("Host: 207.249.127.215");
+    client.println("Content-Type: application/json");
+    client.println("User-Agent: Arduino 1/0");
+    client.print("Content-Length: ");
+    client.println(data2.length());
+    client.println();
+    client.print(data2);
     client.println();
 
     Serial.println("ENTIDAD ACTUALIZADA");
